@@ -4,6 +4,7 @@
 xcuserdata
 !src/**/build/
 local.properties
+kotlin-js-store
 .idea
 .DS_Store
 captures
