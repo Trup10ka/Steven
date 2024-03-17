@@ -1,4 +1,4 @@
-package me.friedl.steven
+package me.trup10ka.steven.server
 
 import Greeting
 import SERVER_PORT

@@ -4,7 +4,7 @@ plugins {
     application
 }
 
-group = "me.friedl.steven"
+group = "me.friedl.steven.server"
 version = "1.0.0"
 application {
     mainClass.set("me.friedl.steven.ApplicationKt")
