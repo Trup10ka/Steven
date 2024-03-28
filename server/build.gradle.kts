@@ -4,10 +4,11 @@ plugins {
     application
 }
 
-group = "me.friedl.steven.server"
+group = "me.trup10ka.steven.server"
 version = "1.0.0"
+
 application {
-    mainClass.set("me.friedl.steven.ApplicationKt")
+    mainClass.set("me.trup10ka.steven.server.ApplicationKt")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=${extra["development"] ?: "false"}")
 }
 
@@ -18,4 +19,10 @@ dependencies {
     implementation(libs.ktor.server.netty)
     testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.test.junit)
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("Steven-Server-${version}.jar")
+    }
 }
