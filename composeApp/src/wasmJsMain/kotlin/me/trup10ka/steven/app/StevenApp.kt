@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package me.trup10ka.steven.app
 
 import Greeting
