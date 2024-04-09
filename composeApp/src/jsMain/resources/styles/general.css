@@ -1,0 +1,36 @@
+.tilt-neon-normal {
+    font-family: "Tilt Neon", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(#6f37a6, #3a297e, #140840);
+}
+
+.steven-button {
+    padding: 15px 40px;
+    font-size: 16px;
+    border: none;
+    background-color: #3B5BCB;
+    border-radius: 25px;
+    color: #fff;
+    cursor: pointer;
+
+}
