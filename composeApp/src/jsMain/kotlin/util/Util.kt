@@ -7,16 +7,17 @@ import org.w3c.fetch.Response
 import kotlin.js.Promise
 import kotlin.js.json
 
-private suspend fun Promise<Response>.assertStatus() = await().apply {
-    status.toInt().also {
-        check(200 == it || 0 == it) {
-            "Operation not code 200: $status  $url".also { msg ->
-                console.log(msg)
-                window.alert(msg)
+private suspend fun Promise<Response>.assertStatus() =
+    await().apply {
+        status.toInt().also {
+            check(200 == it || 0 == it) {
+                "Operation not code 200: $status  $url".also { msg ->
+                    console.log(msg)
+                    window.alert(msg)
+                }
             }
         }
     }
-}
 
 suspend fun fetch(method: String, url: String, body: dynamic = null): Response =
     window.fetch(
@@ -32,8 +33,8 @@ suspend fun fetch(method: String, url: String, body: dynamic = null): Response =
     ).assertStatus()
 
 
-private suspend fun get(url: String): Response =
+suspend fun get(url: String): Response =
     fetch("GET", url)
 
-private suspend fun post(url: String, body: dynamic): Response =
+suspend fun post(url: String, body: dynamic): Response =
     fetch("POST", url, JSON.stringify(body))
