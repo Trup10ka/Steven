@@ -3,6 +3,17 @@ plugins {
 }
 
 kotlin {
+
+    js(IR) {
+
+        browser {
+            webpackTask {
+                mainOutputFileName = "steven.js"
+            }
+        }
+        binaries.executable()
+
+    }
     
     sourceSets {
         
