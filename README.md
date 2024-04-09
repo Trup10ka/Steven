@@ -1,11 +1,31 @@
+# Steven
+**Kotlin Web application**
+
+This app is supposed to keep track of people on various group events.
+
+ > *This project exists thanks to my Web technologies professor, who gave me the idea to create this app, and also to my 
+love for Kotlin.*
+
+## General idea
+One person from the group, who is chosen as the event organizer. 
+He then creates an event and invites people to join it.
+
+If the receiver accepts the invitation, he is added to the event list.
+Organiser then can see who is where and when was the last time they checked in.
+
+Basically, **non-admin user can only see map and where the user stands and a RED button sayin "I'm alive!"**
+After pressing this button, your position is updated and the last time-check is updated.
+
+So the organizer can keep in touch with the group and see if everyone is okay.
+
+## Kotlin multiplatform target
 This is a Kotlin Multiplatform project targeting Web, Server.
 
 * `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
   It contains several subfolders:
   - `commonMain` is for code that’s common for all targets.
   - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+    For example, `jsMain` is folder for JavaScript.
 
 * `/server` is for the Ktor server application.
 
@@ -14,11 +34,3 @@ This is a Kotlin Multiplatform project targeting Web, Server.
 
 
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
-
-**Note:** Compose/Web is Experimental and may be changed at any time. Use it only for evaluation purposes.
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [GitHub](https://github.com/JetBrains/compose-multiplatform/issues).
-
-You can open the web application by running the `:composeApp:wasmJsBrowserDevelopmentRun` Gradle task.
