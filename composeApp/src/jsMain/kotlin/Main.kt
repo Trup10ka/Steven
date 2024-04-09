@@ -1,4 +1,6 @@
+import pages.InvitePage
+
 fun main()
 {
-    console.log("Hello, world!")
+    InvitePage.setUpButtons()
 }
