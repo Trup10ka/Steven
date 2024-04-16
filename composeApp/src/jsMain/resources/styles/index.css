@@ -25,7 +25,7 @@
     align-items: center;
     gap: 10rem;
     height: 100%;
-    width: 50%;
+    width: 80%;
 }
 
 #invitation-link-input {
@@ -37,7 +37,6 @@
 }
 
 #invitation-link-label {
-    width: 35%;
     height: 3.7rem;
     text-align: center;
     font-style: italic;

@@ -1,6 +1,9 @@
+import kotlinx.browser.document
 import pages.InvitePage
 
 fun main()
 {
-    InvitePage.setUpButtons()
+    document.addEventListener(
+        "DOMContentLoaded", { InvitePage.setUpButtons() }
+    )
 }

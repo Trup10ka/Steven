@@ -1,0 +1,4 @@
+package pages
+
+object MapPage {
+}
