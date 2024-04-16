@@ -1,3 +1,5 @@
+package me.trup10ka.shared
+
 class Greeting {
     private val platform = getPlatform()
 
