@@ -8,7 +8,7 @@ group = "me.trup10ka.steven.server"
 version = "1.0.0"
 
 application {
-    mainClass.set("me.trup10ka.steven.server.ApplicationKt")
+    mainClass.set("me.trup10ka.steven.server.StevenAppKt")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=${extra["development"] ?: "false"}")
 }
 
