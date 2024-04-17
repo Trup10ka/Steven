@@ -1,23 +1,10 @@
-package util
+package me.trup10ka.steven.app.util
 
 import kotlinx.browser.window
-import kotlinx.coroutines.await
+import kotlinx.coroutines.*
 import org.w3c.fetch.RequestInit
 import org.w3c.fetch.Response
-import kotlin.js.Promise
 import kotlin.js.json
-
-private suspend fun Promise<Response>.assertStatus() =
-    await().apply {
-        status.toInt().also {
-            check(200 == it || 0 == it) {
-                "Operation not code 200: $status  $url".also { msg ->
-                    console.log(msg)
-                    window.alert(msg)
-                }
-            }
-        }
-    }
 
 suspend fun fetch(method: String, url: String, body: dynamic = null): Response =
     window.fetch(
@@ -30,7 +17,7 @@ suspend fun fetch(method: String, url: String, body: dynamic = null): Response =
                 "pragma" to "no-cache"
             )
         )
-    ).assertStatus()
+    ).await()
 
 
 suspend fun get(url: String): Response =
@@ -38,3 +25,9 @@ suspend fun get(url: String): Response =
 
 suspend fun post(url: String, body: dynamic): Response =
     fetch("POST", url, JSON.stringify(body))
+
+fun launchInMainScope(block: suspend () -> Unit)
+{
+    CoroutineScope(Dispatchers.Main)
+        .launch { block() }
+}
