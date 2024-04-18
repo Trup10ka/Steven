@@ -18,6 +18,6 @@ dependencyResolutionManagement {
     }
 }
 
-include(":composeApp")
+include(":webapp")
 include(":server")
 include(":shared")
