@@ -1,23 +1,45 @@
 package me.trup10ka.steven.server
 
-import me.trup10ka.shared.HOST
-import me.trup10ka.shared.SERVER_PORT
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import me.trup10ka.steven.server.config.Config
+import me.trup10ka.steven.server.config.FileConfigProvider
 import me.trup10ka.steven.server.plugins.configureRouting
 
-fun main()
+class StevenApp
 {
-    embeddedServer(
-        Netty,
-        port = SERVER_PORT,
-        host = HOST,
-        module = Application::module
-    ).start(wait = true)
+    private lateinit var config: Config
+
+    private lateinit var engine: ApplicationEngine
+
+    private val configProvider = FileConfigProvider("config.yaml")
+
+    fun init()
+    {
+        loadConfig()
+        setupEngine()
+    }
+
+    fun start() = engine.start(wait = true)
+
+    private fun loadConfig()
+    {
+        config = configProvider.getConfig()
+    }
+
+    private fun setupEngine()
+    {
+        engine = embeddedServer(
+            Netty,
+            port = config.port,
+            host = config.host,
+            module = Application::stevenModule
+        )
+    }
 }
 
-fun Application.module()
+fun Application.stevenModule()
 {
     configureRouting()
 }
