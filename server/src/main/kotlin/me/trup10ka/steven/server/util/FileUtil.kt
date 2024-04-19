@@ -1,9 +1,12 @@
 package me.trup10ka.steven.server.util
 
+
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.InputStream
 import java.nio.file.Files
+
+fun fromResources(path: String) = File("resources/$path")
 
 fun copyFileIfNotExists(source: InputStream, destination: File)
 {
