@@ -7,13 +7,13 @@ private const val ALL_ALPHANUMERIC = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop
 private val randomAlphanumericCharIndex: Int
     get() = Random.nextInt(ALL_ALPHANUMERIC.length)
 
-val humanUUID: String
+val humanUID: String
     get() = generateRandomAlphanumeric(7)
 
-val eventUUID: String
+val eventUID: String
     get() = generateRandomAlphanumeric(5)
 
-fun generateUUID() = "${eventUUID}-${humanUUID}"
+fun generateUID() = "${eventUID}-${humanUID}"
 
 private fun generateRandomAlphanumeric(length: Int): String
 {
