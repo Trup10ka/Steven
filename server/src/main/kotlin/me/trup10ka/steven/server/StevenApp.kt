@@ -5,7 +5,6 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import me.trup10ka.steven.server.config.Config
 import me.trup10ka.steven.server.config.FileConfigProvider
-import me.trup10ka.steven.server.plugins.configureRouting
 
 class StevenApp
 {
