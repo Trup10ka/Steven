@@ -38,8 +38,3 @@ class StevenApp
         )
     }
 }
-
-fun Application.stevenModule()
-{
-    configureRouting()
-}
