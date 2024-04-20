@@ -21,15 +21,29 @@ fun Application.configureRouting(
         staticResources("/styles/", STYLES_DIR)
         staticResources("/scripts/", JS_DIR)
 
+        pages(teacherVanguard, eventManager)
+
+        api(teacherVanguard, eventManager)
+    }
+}
+
+private fun Route.pages(teacherVanguard: TeacherVanguard, eventManager: EventManager)
+{
+    route("/") {
         index()
-
         areYouATeacher(teacherVanguard)
-
         lookForEvent(eventManager)
     }
 }
 
-fun Route.index()
+private fun Route.api(teacherVanguard: TeacherVanguard, eventManager: EventManager)
+{
+    route("/api") {
+
+    }
+}
+
+private fun Route.index()
 {
     val stevenIndex = fromResources("index.html")
 
@@ -40,7 +54,7 @@ fun Route.index()
     }
 }
 
-fun Route.areYouATeacher(teacherVanguard: TeacherVanguard)
+private fun Route.areYouATeacher(teacherVanguard: TeacherVanguard)
 {
     val createPage = fromResources("pages/create-event.html")
 
@@ -55,7 +69,7 @@ fun Route.areYouATeacher(teacherVanguard: TeacherVanguard)
     }
 }
 
-fun Route.lookForEvent(eventManager: EventManager)
+private fun Route.lookForEvent(eventManager: EventManager)
 {
     val mapPage = fromResources("pages/map.html")
 
