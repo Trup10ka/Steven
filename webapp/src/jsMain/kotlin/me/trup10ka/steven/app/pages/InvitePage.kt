@@ -10,7 +10,7 @@ import me.trup10ka.steven.app.util.get
 import me.trup10ka.steven.app.util.launchInMainScope
 
 
-object InvitePage
+class InvitePage : Page
 {
     private val invitationLinkField = document.getElementById("invitation-link-input") as HTMLInputElement
 
@@ -23,7 +23,12 @@ object InvitePage
     private val invitationLink: String
         get() = invitationLinkField.value
 
-    fun setUpButtons()
+    override fun setupPage()
+    {
+        setUpButtons()
+    }
+
+    private fun setUpButtons()
     {
         takeMeInButton.addEventListener("click", {
                 launchInMainScope { sendProvidedLink() }
