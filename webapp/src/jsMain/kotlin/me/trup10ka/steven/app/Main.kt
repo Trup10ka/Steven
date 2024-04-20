@@ -1,8 +1,8 @@
 package me.trup10ka.steven.app
 
-import me.trup10ka.steven.app.pages.InvitePage
+import kotlinx.browser.window
 
 fun main()
 {
-    InvitePage.setUpButtons()
+    val stevenClient = StevenClient(window.location.pathname)
 }
