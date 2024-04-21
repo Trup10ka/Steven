@@ -10,3 +10,4 @@ kotlin-js-store
 captures
 .externalNativeBuild
 .cxx
+Build-Test-Dir.ps1
