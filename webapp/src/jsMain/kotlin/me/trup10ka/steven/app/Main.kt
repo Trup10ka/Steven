@@ -5,4 +5,5 @@ import kotlinx.browser.window
 fun main()
 {
     val stevenClient = StevenClient(window.location.pathname)
+    stevenClient.setup()
 }

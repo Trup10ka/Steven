@@ -11,9 +11,15 @@ class StevenClient(currentRoute: String)
     {
         when (currentRoute)
         {
-            "/index.html" -> page = InvitePage()
+            "/" -> page = InvitePage()
 
             else -> console.error("Unknown route: $currentRoute, anything regarding script will not work")
         }
+    }
+
+    fun setup()
+    {
+        if (::page.isInitialized)
+            page.setupPage()
     }
 }
