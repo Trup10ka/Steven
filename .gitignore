@@ -9,5 +9,5 @@ kotlin-js-store
 .DS_Store
 captures
 .externalNativeBuild
-.cxx
-Build-Test-Dir.ps1
+venv
+test-build
