@@ -6,8 +6,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import me.trup10ka.steven.server.event.EventManager
 import me.trup10ka.steven.server.event.TeacherVanguard
-import me.trup10ka.steven.server.util.JS_DIR
-import me.trup10ka.steven.server.util.STYLES_DIR
 import me.trup10ka.steven.server.util.fromResources
 import me.trup10ka.steven.server.util.throwIfFileDoesNotExist
 
@@ -18,8 +16,7 @@ fun Application.configureRouting(
 {
     routing {
 
-        staticResources("/styles/", STYLES_DIR)
-        staticResources("/scripts/", JS_DIR)
+        resourceFiles()
 
         pages(teacherVanguard, eventManager)
 
@@ -78,4 +75,16 @@ private fun Route.lookForEvent(eventManager: EventManager)
     get("/take-me-in") {
         call.respondFile(mapPage)
     }
+}
+
+private fun Route.resourceFiles()
+{
+    val staticStyles = fromResources("styles")
+    val staticScripts = fromResources("scripts")
+
+    throwIfFileDoesNotExist(staticStyles, "Directory", "styles")
+    throwIfFileDoesNotExist(staticScripts, "Directory", "scripts")
+
+    staticFiles("/styles/", staticStyles)
+    staticFiles("/scripts/", staticScripts)
 }
