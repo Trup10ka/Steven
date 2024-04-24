@@ -18,6 +18,12 @@ def copy_directory_contents(source, destination):
             shutil.copy2(source_file, destination_file)
             print(f"Copied: {source_file} -> {destination_file}")
 
+            if fileElement == 'steven.js' or fileElement == 'steven.js.map':
+                scripts_dir = os.path.join(destination, 'scripts')
+                target_path = os.path.join(scripts_dir, fileElement)
+                shutil.move(source_file, target_path)
+                print(f"Moved: {source_file} -> {target_path}")
+
 
 directory_name = "test-build"
 current_dir = os.getcwd()
