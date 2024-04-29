@@ -5,7 +5,9 @@ body {
 }
 
 #map {
-    height: 20rem;
+    height: 50%;
+    width: 50%;
+    border-radius: 8px;
 }
 
 #members-container {

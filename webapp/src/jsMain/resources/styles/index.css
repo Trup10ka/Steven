@@ -18,6 +18,12 @@
     text-align: center;
 }
 
+#teacher-login {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 #invitation-form {
     display: flex;
     flex-direction: column;
@@ -29,11 +35,17 @@
 }
 
 #invitation-link-input {
-    padding: 10px;
-    font-size: 16px;
-    border: none;
     background-color: #3B5BCB;
-    border-radius: 25px;
+    color: rgba(255, 255, 255, 0.58);
+}
+
+#teacher-id-input {
+    background-color: rgba(111, 55, 166, 0.58);
+}
+
+#teacher-id-input::placeholder {
+    color: #fff;
+    font-style: italic;
 }
 
 #invitation-link-label {
