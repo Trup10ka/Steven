@@ -25,10 +25,3 @@ suspend fun get(url: String): Response =
 
 suspend fun post(url: String, body: dynamic): Response =
     fetch("POST", url, JSON.stringify(body))
-
-fun String.attachHeaderParam(param: String, attachAmpersand: Boolean = true): String
-{
-    if (this.contains("?"))
-        return "$this${if (attachAmpersand) "&" else ""}$param"
-    return "$this?$param"
-}
