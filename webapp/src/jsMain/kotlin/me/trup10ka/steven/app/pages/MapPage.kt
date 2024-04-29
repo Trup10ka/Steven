@@ -1,11 +1,12 @@
 package me.trup10ka.steven.app.pages
 
+import me.trup10ka.steven.app.StevenClient
 import me.trup10ka.steven.app.geo.GeoProvider
 import me.trup10ka.steven.app.geo.JSPureGeoProvider
 import me.trup10ka.steven.app.util.L
 import me.trup10ka.steven.app.util.TileLayerOptions
 
-class MapPage : Page
+class MapPage(private val stevenClient: StevenClient) : Page
 {
     private val geoProvider: GeoProvider = JSPureGeoProvider()
 
@@ -13,12 +14,14 @@ class MapPage : Page
 
     override fun setupPage()
     {
+        geoProvider.sendLocation(stevenClient.memberId)
         setupMap()
+        gatherAllLocations()
     }
 
     private fun setupMap()
     {
-        map.setView(arrayOf(51.505, -0.09), 13)
+        map.setView(arrayOf(51.50, -0.11), 13)
 
         val tileLayerOptions = createTileLayerOptions()
 
@@ -26,6 +29,11 @@ class MapPage : Page
             "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
             tileLayerOptions
         ).addTo(map)
+    }
+
+    private fun gatherAllLocations()
+    {
+
     }
 
     private fun createTileLayerOptions(): TileLayerOptions
