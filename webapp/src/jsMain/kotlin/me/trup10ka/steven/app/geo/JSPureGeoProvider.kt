@@ -1,19 +1,29 @@
 package me.trup10ka.steven.app.geo
 
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import me.trup10ka.shared.data.Location
-import me.trup10ka.shared.util.attachHeaderParam
-import me.trup10ka.steven.app.util.get
+import me.trup10ka.shared.util.withLocation
 import me.trup10ka.steven.app.util.launchInMainScope
+import me.trup10ka.steven.app.util.post
+
 
 class JSPureGeoProvider : GeoProvider
 {
-    override fun getLocation(): Location?
+    override fun sendLocation(senderId: String)
     {
-        var location: Location? = null
-        callJsGetLocation { lat, long ->
-            location = Location(lat.toDouble(), long.toDouble())
+        callJsGetLocation { latitude, longitude ->
+
+            val location = Location(latitude.toDouble(), longitude.toDouble())
+
+            launchInMainScope {
+                console.log(
+                    Json.encodeToString(location)
+                )
+                post("/api/location/" withLocation senderId,
+                    JSON.stringify(location))
+            }
         }
-        return location
     }
 }
 
