@@ -8,10 +8,10 @@ private val randomAlphanumericCharIndex: Int
     get() = Random.nextInt(ALL_ALPHANUMERIC.length)
 
 val humanUID: String
-    get() = generateRandomAlphanumeric(7)
+    get() = "M" + generateRandomAlphanumeric(6)
 
 val eventUID: String
-    get() = generateRandomAlphanumeric(5)
+    get() = "E" + generateRandomAlphanumeric(4)
 
 fun generateUID() = "${eventUID}-${humanUID}"
 
