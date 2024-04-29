@@ -26,8 +26,9 @@ suspend fun get(url: String): Response =
 suspend fun post(url: String, body: dynamic): Response =
     fetch("POST", url, JSON.stringify(body))
 
-fun launchInMainScope(block: suspend () -> Unit)
+fun String.attachHeaderParam(param: String, attachAmpersand: Boolean = true): String
 {
-    CoroutineScope(Dispatchers.Main)
-        .launch { block() }
+    if (this.contains("?"))
+        return "$this${if (attachAmpersand) "&" else ""}$param"
+    return "$this?$param"
 }
