@@ -40,43 +40,6 @@ private fun Route.api(teacherVanguard: TeacherVanguard, eventManager: EventManag
     }
 }
 
-private fun Route.index()
-{
-    val stevenIndex = fromResources("index.html")
-
-    throwIfFileDoesNotExist(stevenIndex, "HTML", "index.html")
-
-    get {
-        call.respondFile(stevenIndex)
-    }
-}
-
-private fun Route.areYouATeacher(teacherVanguard: TeacherVanguard)
-{
-    val createPage = fromResources("pages/create-event.html")
-
-    throwIfFileDoesNotExist(createPage, "HTML", "create-event.html")
-
-    get("/are-you-a-teacher/{id}") {
-
-        if (!teacherVanguard.isTeacher(call.parameters["id"]!!))
-            call.respond(489)
-        else
-            call.respondFile(createPage)
-    }
-}
-
-private fun Route.lookForEvent(eventManager: EventManager)
-{
-    val mapPage = fromResources("pages/map.html")
-
-    throwIfFileDoesNotExist(mapPage, "HTML", "map.html")
-
-    get("/take-me-in") {
-        call.respondFile(mapPage)
-    }
-}
-
 private fun Route.resourceFiles()
 {
     val staticStyles = fromResources("styles")
