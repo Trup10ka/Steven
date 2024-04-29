@@ -1,13 +1,15 @@
 package me.trup10ka.steven.app.pages
 
 import kotlinx.browser.document
-import kotlinx.browser.window
 import me.trup10ka.shared.util.Color
+import me.trup10ka.shared.util.attachHeaderParam
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLInputElement
 import me.trup10ka.steven.app.util.get
 import me.trup10ka.steven.app.util.launchInMainScope
+import me.trup10ka.shared.util.ParamNames.*
+import me.trup10ka.shared.util.withLocation
 
 
 class InvitePage : Page
@@ -18,10 +20,15 @@ class InvitePage : Page
 
     private val takeMeInButton = document.getElementById("take-me-in-button") as HTMLButtonElement
 
+    private val teacherIdInputField = document.getElementById("teacher-id-input") as HTMLInputElement
+
     private val teacherButton = document.getElementById("are-you-a-teacher-button") as HTMLButtonElement
 
     private val invitationLink: String
         get() = invitationLinkField.value
+
+    private val teacherId: String
+        get() = teacherIdInputField.value
 
     override fun setupPage()
     {
@@ -36,7 +43,7 @@ class InvitePage : Page
         )
 
         teacherButton.addEventListener("click", {
-                redirectToTeacherPage()
+                launchInMainScope { redirectToTeacherPage() }
             }
         )
     }
@@ -50,21 +57,22 @@ class InvitePage : Page
             return
         }
 
-        // val response = get("https://s-friedl.dev.spsejecna.net/link")
-        val response = get("http://localhost/link?eventCode=$invitationLink")
+        val location = "/take-me-in".attachHeaderParam(LOCATION.paramName, invitationLink)
 
-        if (response.ok)
-        {
-            redirectToTeacherPage()
-        }
-        else
-        {
-            console.log("Failed to send invitation link")
-        }
+        get("http://localhost" withLocation location)
     }
 
-    private fun redirectToTeacherPage()
+    private suspend fun redirectToTeacherPage()
     {
-        window.location.href += "/take-me-in"
+        if (teacherId.isEmpty())
+        {
+            teacherIdInputField.placeholder = "Incorrect teacher ID"
+            teacherIdInputField.style.backgroundColor = Color.STEVEN_ERROR.toString()
+            return
+        }
+
+        val location = "/teacher".attachHeaderParam(TEACHER_ID.paramName, teacherId)
+
+        get("http://localhost" withLocation location)
     }
 }
