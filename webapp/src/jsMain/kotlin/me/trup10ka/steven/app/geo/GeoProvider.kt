@@ -4,5 +4,5 @@ import me.trup10ka.shared.data.Location
 
 interface GeoProvider
 {
-    fun sendLocation()
+    fun getLocation(): Location?
 }
