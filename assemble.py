@@ -1,7 +1,7 @@
 import os
 import shutil
 
-
+# This script is used to assemble the server and client resources into a single directory
 def copy_directory_contents(source, destination):
     for root, dirs, files in os.walk(source):
         for dirElement in dirs:
