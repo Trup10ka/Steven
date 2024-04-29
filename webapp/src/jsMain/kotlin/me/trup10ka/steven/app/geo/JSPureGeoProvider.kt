@@ -1,6 +1,9 @@
 package me.trup10ka.steven.app.geo
 
 import me.trup10ka.shared.data.Location
+import me.trup10ka.steven.app.util.attachHeaderParam
+import me.trup10ka.steven.app.util.get
+import me.trup10ka.steven.app.util.launchInMainScope
 
 class JSPureGeoProvider : GeoProvider
 {
@@ -8,7 +11,11 @@ class JSPureGeoProvider : GeoProvider
     {
         callJsGetLocation { lat, long ->
             val location = Location(lat.toDouble(), long.toDouble())
-            console.log("Location: $location")
+            launchInMainScope {
+                get(
+                    "/api/location".attachHeaderParam(location.toString())
+                )
+            }
         }
     }
 }
