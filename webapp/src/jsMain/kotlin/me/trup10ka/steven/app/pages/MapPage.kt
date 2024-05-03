@@ -1,22 +1,41 @@
 package me.trup10ka.steven.app.pages
 
+import kotlinx.browser.document
+import kotlinx.coroutines.await
+import kotlinx.serialization.json.Json
+import me.trup10ka.shared.data.EventMember
+import me.trup10ka.shared.util.IdType.EVENT
+import me.trup10ka.shared.util.IdType.MEMBER
+import me.trup10ka.shared.util.idOf
+import me.trup10ka.shared.util.withLocation
 import me.trup10ka.steven.app.StevenClient
 import me.trup10ka.steven.app.geo.GeoProvider
 import me.trup10ka.steven.app.geo.JSPureGeoProvider
-import me.trup10ka.steven.app.util.L
-import me.trup10ka.steven.app.util.TileLayerOptions
+import me.trup10ka.steven.app.util.*
 
 class MapPage(private val stevenClient: StevenClient) : Page
 {
+    private val membersContainer = document.getElementById("members-container")
+
     private val geoProvider: GeoProvider = JSPureGeoProvider()
 
     private val map = L.map("map")
 
+    private val allMarkers = mutableMapOf<String, Marker>()
+
+    private val allMembers = mutableListOf<EventMember>()
+
+    private val memberId: String
+        get() = getLastPathSegment() idOf MEMBER
+
+    private val eventId: String
+        get() = getLastPathSegment() idOf EVENT
+
     override fun setupPage()
     {
-        geoProvider.sendLocation(stevenClient.memberId)
+        geoProvider.sendLocation(memberId)
         setupMap()
-        gatherAllLocations()
+        launchInMainScope { gatherAllLocations() }
     }
 
     private fun setupMap()
@@ -31,20 +50,49 @@ class MapPage(private val stevenClient: StevenClient) : Page
         ).addTo(map)
     }
 
-    private fun gatherAllLocations()
+    private suspend fun gatherAllLocations()
     {
+        val location = "/api/events/$eventId/members"
 
-    }
+        val response = get("http://localhost:8000" withLocation location)
 
-    private fun createTileLayerOptions(): TileLayerOptions
-    {
-        val defaultTileOptions = object {
-            val minZoom = 1
-            val maxZoom = 19
-            val attribution =
-                "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>"
+        if (!response.ok)
+        {
+            console.error("Failed to fetch locations")
+            return
         }
 
-        return defaultTileOptions.unsafeCast<TileLayerOptions>()
+        val members = Json.decodeFromString<Array<EventMember>>(
+            response.json().await().toString()
+        )
+
+        allMembers.addAll(members)
+        displayLocationsOnMap()
+    }
+
+    private fun displayLocationsOnMap()
+    {
+        allMembers.forEach { member ->
+
+            if (member.lastLocation != null)
+            {
+                val locationArray = arrayOf(
+                    member.lastLocation!!.latitude,
+                    member.lastLocation!!.longitude
+                )
+
+                val marker = allMarkers.getOrPut(member.id) {
+
+                    val marker = L.marker(
+                        locationArray,
+                        createMarkerTitleOption("${member.name} ${member.surnameInitial}")
+                    )
+
+                    marker.addTo(map)
+                    marker
+                }
+                marker.setLatLng(locationArray)
+            }
+        }
     }
 }
