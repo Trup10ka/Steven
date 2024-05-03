@@ -83,3 +83,22 @@ external class LatLng
     var lat: Double
     var lng: Double
 }
+
+fun createTileLayerOptions(): TileLayerOptions
+{
+    val defaultTileOptions = object {
+        val minZoom = 1
+        val maxZoom = 19
+        val attribution =
+            "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>"
+    }
+
+    return defaultTileOptions.unsafeCast<TileLayerOptions>()
+}
+
+fun createMarkerTitleOption(title: String): MarkerOptions
+{
+    val defaultMarkerOptions = object { val title = title }
+
+    return defaultMarkerOptions.unsafeCast<MarkerOptions>()
+}
