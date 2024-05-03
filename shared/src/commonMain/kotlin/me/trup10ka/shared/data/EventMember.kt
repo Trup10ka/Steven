@@ -5,5 +5,6 @@ data class EventMember(
     val name: String,
     val surnameInitial: String,
     val isTeacher: Boolean,
-    val telNumber: String?
+    val telNumber: String?,
+    val lastLocation: Location? = null
 )
