@@ -10,19 +10,20 @@ import me.trup10ka.steven.app.util.get
 import me.trup10ka.steven.app.util.launchInMainScope
 import me.trup10ka.shared.util.ParamNames.*
 import me.trup10ka.shared.util.withLocation
+import me.trup10ka.steven.app.util.getElementById
 
 
 class InvitePage : Page
 {
-    private val invitationLinkField = document.getElementById("invitation-link-input") as HTMLInputElement
+    private val invitationLinkField = getElementById("invitation-link-input") as HTMLInputElement
 
-    private val invitationLinkPrompt = document.getElementById("invitation-link-prompt") as HTMLElement
+    private val invitationLinkPrompt = getElementById("invitation-link-prompt") as HTMLElement
 
-    private val takeMeInButton = document.getElementById("take-me-in-button") as HTMLButtonElement
+    private val takeMeInButton = getElementById("take-me-in-button") as HTMLButtonElement
 
-    private val teacherIdInputField = document.getElementById("teacher-id-input") as HTMLInputElement
+    private val teacherIdInputField = getElementById("teacher-id-input") as HTMLInputElement
 
-    private val teacherButton = document.getElementById("are-you-a-teacher-button") as HTMLButtonElement
+    private val teacherButton = getElementById("are-you-a-teacher-button") as HTMLButtonElement
 
     private val invitationLink: String
         get() = invitationLinkField.value

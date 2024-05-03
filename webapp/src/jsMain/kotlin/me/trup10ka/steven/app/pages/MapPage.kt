@@ -15,7 +15,7 @@ import me.trup10ka.steven.app.util.*
 
 class MapPage(private val stevenClient: StevenClient) : Page
 {
-    private val membersContainer = document.getElementById("members-container")
+    private val membersContainer = getElementById("members-container")
 
     private val geoProvider: GeoProvider = JSPureGeoProvider()
 
