@@ -1,3 +1,14 @@
+:root {
+    --steven-purple-primary: #6f37a6;
+    --steven-purple-primary-hover: rgba(74, 31, 122, 0.73);
+    --steven-purple-darker: #3a297e;
+    --steven-blue: #3B5BCB;
+    --steven-blue-hover: #2a3f9d;
+    --steven-primary-text: white;
+    --steven-background: linear-gradient(#6f37a6, #3a297e, #140840);
+}
+
+
 #root, #invitation-link-input {
     width: 100%;
     height: 100%;
@@ -12,7 +23,7 @@
 }
 
 #title {
-    color: #fff;
+    color: var(--steven-primary-text);
     font-size: 4rem;
     font-weight: 700;
     text-align: center;
@@ -35,7 +46,7 @@
 }
 
 #invitation-link-input {
-    background-color: #3B5BCB;
+    background-color: var(--steven-blue);
     color: rgba(255, 255, 255, 0.58);
 }
 

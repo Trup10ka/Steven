@@ -1,3 +1,13 @@
+:root {
+    --steven-purple-primary: #6f37a6;
+    --steven-purple-primary-hover: rgba(74, 31, 122, 0.73);
+    --steven-pruple-darker: #3a297e;
+    --steven-blue: #3B5BCB;
+    --steven-blue-hover: #2a3f9d;
+    --steven-primary-text: white;
+    --steven-background: linear-gradient(#6f37a6, #3a297e, #140840);
+}
+
 .tilt-neon-normal {
     font-family: "Tilt Neon", sans-serif;
     font-optical-sizing: auto;
@@ -21,16 +31,16 @@ body {
     line-height: 1.5;
     margin: 0;
     padding: 0;
-    background: linear-gradient(#6f37a6, #3a297e, #140840);
+    background: var(--steven-background);
 }
 
 .steven-button {
     padding: 15px 40px;
     font-size: 16px;
     border: none;
-    background-color: #3B5BCB;
+    background-color: var(--steven-blue);
     border-radius: 25px;
-    color: #fff;
+    color: var(--steven-primary-text);
     cursor: pointer;
 }
 
@@ -39,4 +49,25 @@ body {
     font-size: 16px;
     border: none;
     border-radius: 25px;
+    color: var(--steven-primary-text);
+}
+
+.steven-blue {
+    background-color: var(--steven-blue);
+}
+
+.steven-blue:hover {
+    background-color: var(--steven-blue-hover);
+}
+
+.steven-purple {
+    background-color: var(--steven-purple-primary);
+}
+
+.steven-purple:hover {
+    background-color: var(--steven-purple-primary-hover);
+}
+
+.white-text {
+    color: var(--steven-primary-text);
 }

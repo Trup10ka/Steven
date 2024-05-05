@@ -1,0 +1,51 @@
+:root {
+    --steven-purple-primary: #6f37a6;
+    --steven-purple-primary-hover: rgba(74, 31, 122, 0.73);
+    --steven-purple-darker: #3a297e;
+    --steven-blue: #3B5BCB;
+    --steven-blue-hover: #2a3f9d;
+    --steven-primary-text: white;
+    --steven-background: linear-gradient(#6f37a6, #3a297e, #140840);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+label {
+    font-size: 20px;
+}
+
+#add-member-button {
+    padding: 16px 20px;
+    border-radius: 10px;
+}
+
+.create-event-form-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px;
+    background-color: var(--steven-purple-darker);
+}
+
+.event-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px
+}

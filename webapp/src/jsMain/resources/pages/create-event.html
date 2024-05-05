@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create Event</title>
-</head>
-<body>
-
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Create Event</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/styles/general.css">
+        <link rel="stylesheet" href="/styles/create-event.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap">
+    </head>
+    <body class="tilt-neon-normal white-text">
+        <div id="all-members" class="create-event-form-box">
+            No members added yet
+        </div>
+        <div id="add-member-form" class="create-event-form-box">
+            <label id="member-name-label" class="event-label"><input type="text" id="member-name-input" class="steven-input steven-blue tilt-neon-normal" placeholder="Member name"></label>
+            <label id="member-surname-label" class="event-label"><input id="member-surname-input" class="steven-input steven-blue tilt-neon-normal" placeholder="Member surname"></label>
+            <button id="add-member-button" class="steven-button">+</button>
+        </div>
+        <div id="event-description-container" class="create-event-form-box">
+            <label id="name-input-label" class="event-label"><span>Name of the event</span><input type="text" id="name-input" class="steven-input steven-purple tilt-neon-normal" placeholder="Name"></label>
+            <label id="start-date-input-label" class="event-label"><span>Start date</span><input type="date" id="start-date-input" class="steven-input steven-purple tilt-neon-normal" placeholder="Start date"></label>
+            <label id="end-date-input-label" class="event-label"><span>End date</span><input type="date" id="end-date-input" class="steven-input steven-purple tilt-neon-normal" placeholder="End date"></label>
+            <label id="note-input-label" class="event-label"><span>Note (optional)</span><input type="text" id="note-input" class="steven-input steven-purple tilt-neon-normal" placeholder="Note"></label>
+        </div>
+        <script src="/scripts/steven.js"></script>
+    </body>
 </html>
