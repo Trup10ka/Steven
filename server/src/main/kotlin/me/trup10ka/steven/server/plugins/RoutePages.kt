@@ -6,13 +6,13 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import me.trup10ka.steven.server.event.EventManager
 import me.trup10ka.steven.server.event.TeacherVanguard
-import me.trup10ka.steven.server.util.fromResources
+import me.trup10ka.steven.server.util.PageFile.createPage
+import me.trup10ka.steven.server.util.PageFile.mapPage
+import me.trup10ka.steven.server.util.PageFile.stevenIndex
 import me.trup10ka.steven.server.util.throwIfFileDoesNotExist
 
 fun Route.index()
 {
-    val stevenIndex = fromResources("index.html")
-
     throwIfFileDoesNotExist(stevenIndex, "HTML", "index.html")
 
     get {
@@ -22,8 +22,6 @@ fun Route.index()
 
 fun Route.areYouATeacher(teacherVanguard: TeacherVanguard)
 {
-    val createPage = fromResources("pages/create-event.html")
-
     throwIfFileDoesNotExist(createPage, "HTML", "create-event.html")
 
     get("/are-you-a-teacher/{id}") {
@@ -37,8 +35,6 @@ fun Route.areYouATeacher(teacherVanguard: TeacherVanguard)
 
 fun Route.lookForEvent(eventManager: EventManager)
 {
-    val mapPage = fromResources("pages/map.html")
-
     throwIfFileDoesNotExist(mapPage, "HTML", "map.html")
 
     get("/take-me-in") {
