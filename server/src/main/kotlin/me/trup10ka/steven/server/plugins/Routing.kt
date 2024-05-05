@@ -36,7 +36,8 @@ private fun Route.pages(teacherVanguard: TeacherVanguard, eventManager: EventMan
 private fun Route.api(teacherVanguard: TeacherVanguard, eventManager: EventManager)
 {
     route("/api") {
-
+        getAllMembersFromEvent(eventManager)
+        createNewEvent(eventManager)
     }
 }
 
