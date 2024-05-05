@@ -1,6 +1,5 @@
 package me.trup10ka.steven.app.pages
 
-import kotlinx.browser.document
 import kotlinx.coroutines.await
 import kotlinx.serialization.json.Json
 import me.trup10ka.shared.data.EventMember
@@ -8,12 +7,11 @@ import me.trup10ka.shared.util.IdType.EVENT
 import me.trup10ka.shared.util.IdType.MEMBER
 import me.trup10ka.shared.util.idOf
 import me.trup10ka.shared.util.withLocation
-import me.trup10ka.steven.app.StevenClient
 import me.trup10ka.steven.app.geo.GeoProvider
 import me.trup10ka.steven.app.geo.JSPureGeoProvider
 import me.trup10ka.steven.app.util.*
 
-class MapPage(private val stevenClient: StevenClient) : Page
+class MapPage : Page
 {
     private val membersContainer = getElementById("members-container")
 
@@ -35,7 +33,12 @@ class MapPage(private val stevenClient: StevenClient) : Page
     {
         geoProvider.sendLocation(memberId)
         setupMap()
-        launchInMainScope { gatherAllLocations() }
+
+        launchInMainScope {
+            gatherAllLocations()
+            displayEveryoneInMemberBox()
+            displayLocationsOnMap()
+        }
     }
 
     private fun setupMap()
@@ -67,7 +70,16 @@ class MapPage(private val stevenClient: StevenClient) : Page
         )
 
         allMembers.addAll(members)
-        displayLocationsOnMap()
+    }
+
+    private fun displayEveryoneInMemberBox()
+    {
+        allMembers.forEach { member ->
+
+            val memberContainer = createMemberContainer(member)
+
+            membersContainer.appendChild(memberContainer)
+        }
     }
 
     private fun displayLocationsOnMap()
@@ -81,18 +93,21 @@ class MapPage(private val stevenClient: StevenClient) : Page
                     member.lastLocation!!.longitude
                 )
 
-                val marker = allMarkers.getOrPut(member.id) {
-
-                    val marker = L.marker(
-                        locationArray,
-                        createMarkerTitleOption("${member.name} ${member.surnameInitial}")
-                    )
-
-                    marker.addTo(map)
-                    marker
-                }
+                val marker = allMarkers.getOrPut(member.id) { createNewMarker(locationArray, member) }
                 marker.setLatLng(locationArray)
             }
         }
+    }
+
+    private fun createNewMarker(locationArray: Array<Double>, member: EventMember): Marker
+    {
+        val marker = L.marker(
+            locationArray,
+            createMarkerTitleOption("${member.name} ${member.surname}")
+        )
+
+        marker.addTo(map)
+
+        return marker
     }
 }

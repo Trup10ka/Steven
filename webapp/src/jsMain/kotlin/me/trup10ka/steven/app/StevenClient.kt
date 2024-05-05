@@ -14,7 +14,7 @@ class StevenClient(currentRoute: String)
         when (currentRoute)
         {
             "/" -> page = InvitePage()
-            "/take-me-in" -> page = MapPage(this)
+            "/take-me-in" -> page = MapPage()
 
             else -> console.error("Unknown route: $currentRoute, anything regarding script will not work")
         }
