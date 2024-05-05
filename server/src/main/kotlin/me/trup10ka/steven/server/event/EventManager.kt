@@ -9,9 +9,11 @@ class EventManager(private val teacherVanguard: TeacherVanguard)
 {
     private val allEvents = mutableListOf<Event>()
 
-    fun createEvent(teacher: EventMember, students: List<EventMember>, name: String, notes: String? = null, startDate: LocalDate, endDate: LocalDate): Boolean
+    fun createEvent(teacher: EventMember, students: List<EventMember>, name: String, notes: String? = null, startDate: LocalDate, endDate: LocalDate): Event?
     {
-        if (!teacherVanguard.isTeacher(teacher.id)) return false
+        if (!teacherVanguard.isTeacher(teacher.id)) return null
+
+        if (startDate > endDate) return null
 
         val event = Event(
             eventUID,
@@ -23,6 +25,13 @@ class EventManager(private val teacherVanguard: TeacherVanguard)
             students
         )
         allEvents.add(event)
+        return event
+    }
+
+    fun removeEvent(id: String): Boolean
+    {
+        val event = allEvents.find { it.id == id } ?: return false
+        allEvents.remove(event)
         return true
     }
 
