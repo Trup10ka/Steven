@@ -9,8 +9,9 @@ fun Application.configureContentNegotiation()
 {
     install(ContentNegotiation) {
         json(Json {
-            prettyPrint = true
-            isLenient = true
-        })
+                prettyPrint = true
+                isLenient = true
+            }
+        )
     }
 }
