@@ -42,7 +42,7 @@ private fun createLastSeen() = createDiv().apply { classList.add("last-seen") }
 
 private fun createMemberName(member: EventMember) = createLabel(member.name).apply { classList.add("member-name") }
 
-private fun createMemberSurnameInitial(member: EventMember) = createLabel(member.surnameInitial).apply { classList.add("member-surname") }
+private fun createMemberSurnameInitial(member: EventMember) = createLabel(member.surname).apply { classList.add("member-surname") }
 
 private fun createLastSeen(eventMember: EventMember) = createLabel(eventMember.lastLocation?.toString() ?: "No location yet").apply { classList.add("member-last-seen") }
 
