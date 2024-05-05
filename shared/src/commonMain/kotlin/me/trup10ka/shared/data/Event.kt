@@ -1,7 +1,9 @@
 package me.trup10ka.shared.data
 
 import kotlinx.datetime.LocalDate
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Event(
     val id: String,
     val name: String,
