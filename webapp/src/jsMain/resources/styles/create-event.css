@@ -78,3 +78,11 @@ label {
     border-radius: 8px;
     padding: 0.5rem;
 }
+
+#create-event-button {
+    margin-top: 1.5rem;
+}
+
+#all-members {
+    overflow-y: scroll;
+}
