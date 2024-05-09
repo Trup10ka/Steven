@@ -44,6 +44,7 @@ label {
     color: var(--steven-primary-text);
     border: none;
     font-weight: bolder;
+    cursor: pointer;
 }
 
 .create-event-form-box {
@@ -53,7 +54,7 @@ label {
     align-items: center;
     width: 50%;
     height: 50%;
-    min-height: 360px;
+    min-height: 420px;
     border-radius: 10px;
     padding: 20px;
     margin: 15px;
