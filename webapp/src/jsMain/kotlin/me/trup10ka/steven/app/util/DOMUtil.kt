@@ -4,14 +4,43 @@ import kotlinx.browser.document
 import kotlinx.browser.window
 import me.trup10ka.shared.data.EventMember
 import org.w3c.dom.Element
+import org.w3c.dom.HTMLDivElement
+import org.w3c.dom.HTMLLabelElement
 
 fun getLastPathSegment() = window.location.pathname.split("/").last()
 
 fun getElementById(id: String) = document.getElementById(id)!!
 
-fun createMemberContainer(member: EventMember): Element
+fun createEventCreatingMemberContainer(name: String, surname: String) =
+    createDiv().apply {
+
+        classList.add("member-container")
+
+        appendChild(
+
+            createDiv().apply {
+
+                classList.add("member-info")
+
+                appendChild(
+                    createDiv().apply {
+                        classList.add("member-name")
+                        textContent = name
+                    }
+                )
+                appendChild(
+                    createDiv().apply {
+                        classList.add("member-surname")
+                        textContent = surname
+                    }
+                )
+            }
+        )
+    }
+
+fun createMemberOnMapPageContainer(member: EventMember): Element
 {
-    val memberDiv = createMemberContainer()
+    val memberDiv = createMemberOnMapPageContainer()
     val memberInfo = createMemberInfo()
     val lastSeen = createLastSeen()
 
@@ -34,7 +63,7 @@ fun createMemberContainer(member: EventMember): Element
     return memberDiv
 }
 
-private fun createMemberContainer() = createDiv().apply { classList.add("member-container") }
+private fun createMemberOnMapPageContainer() = createDiv().apply { classList.add("member-container") }
 
 private fun createMemberInfo() = createDiv().apply { classList.add("member-info") }
 
@@ -46,6 +75,6 @@ private fun createMemberSurnameInitial(member: EventMember) = createLabel(member
 
 private fun createLastSeen(eventMember: EventMember) = createLabel(eventMember.lastLocation?.toString() ?: "No location yet").apply { classList.add("member-last-seen") }
 
-private fun createDiv() = document.createElement("div")
+fun createDiv() = document.createElement("div") as HTMLDivElement
 
-private fun createLabel(text: String = "") = document.createElement("label").apply { textContent = text }
+fun createLabel(text: String = "") = document.createElement("label").apply { textContent = text } as HTMLLabelElement
