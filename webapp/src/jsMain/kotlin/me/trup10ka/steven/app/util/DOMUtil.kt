@@ -3,40 +3,35 @@ package me.trup10ka.steven.app.util
 import kotlinx.browser.document
 import kotlinx.browser.window
 import me.trup10ka.shared.data.EventMember
-import org.w3c.dom.Element
-import org.w3c.dom.HTMLDivElement
-import org.w3c.dom.HTMLLabelElement
+import org.w3c.dom.*
 
 fun getLastPathSegment() = window.location.pathname.split("/").last()
 
 fun getElementById(id: String) = document.getElementById(id)!!
 
 fun createEventCreatingMemberContainer(name: String, surname: String) =
-    createDiv().apply {
+    createDiv().apply outerApply@{
 
-        classList.add("member-container")
+        classList.add("event-member-added")
 
-        appendChild(
+        val removeButton = createButton("-").apply {
+            classList.add("remove-member-button")
+            addEventListener("click", { this@outerApply.remove() })
+        }
 
-            createDiv().apply {
+        appendChildren(
 
-                classList.add("member-info")
-
-                appendChild(
-                    createDiv().apply {
-                        classList.add("member-name")
-                        textContent = name
-                    }
-                )
-                appendChild(
-                    createDiv().apply {
-                        classList.add("member-surname")
-                        textContent = surname
-                    }
-                )
-            }
+            createLabel(name).apply {
+                classList.add("member-name")
+            },
+            createLabel(surname).apply {
+                classList.add("member-surname")
+            },
+            removeButton
         )
     }
+
+
 
 fun createMemberOnMapPageContainer(member: EventMember): Element
 {
@@ -78,3 +73,7 @@ private fun createLastSeen(eventMember: EventMember) = createLabel(eventMember.l
 fun createDiv() = document.createElement("div") as HTMLDivElement
 
 fun createLabel(text: String = "") = document.createElement("label").apply { textContent = text } as HTMLLabelElement
+
+fun createButton(text: String = "Button") = document.createElement("button").apply { textContent = text } as HTMLButtonElement
+
+fun Node.appendChildren(vararg children: Node) = children.forEach { appendChild(it) }
