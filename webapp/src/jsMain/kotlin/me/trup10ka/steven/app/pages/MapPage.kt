@@ -76,7 +76,7 @@ class MapPage : Page
     {
         allMembers.forEach { member ->
 
-            val memberContainer = createMemberContainer(member)
+            val memberContainer = createMemberOnMapPageContainer(member)
 
             membersContainer.appendChild(memberContainer)
         }
