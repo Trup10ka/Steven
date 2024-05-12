@@ -1,10 +1,14 @@
 package me.trup10ka.steven.app.pages
 
 import kotlinx.browser.window
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.format.DateTimeFormat
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import me.trup10ka.shared.data.dto.EventDTO
+import me.trup10ka.shared.data.dto.EventMemberDTO
 import me.trup10ka.shared.util.Color
-import me.trup10ka.steven.app.util.createDiv
-import me.trup10ka.steven.app.util.createEventCreatingMemberContainer
-import me.trup10ka.steven.app.util.getElementById
+import me.trup10ka.steven.app.util.*
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLInputElement
@@ -30,23 +34,51 @@ class CreateEventPage : Page
 
     private val eventNoteInput = getElementById("note-input") as HTMLInputElement
 
+    private val addedMembers = mutableListOf<EventMemberDTO>()
+
+    private val eventName: String
+        get() = eventNameInput.value
+
+    private val startDate: String
+        get() = startDateInput.value
+
+    private val endDate: String
+        get() = endDateInput.value
+
+    private val eventNote: String
+        get() = eventNoteInput.value
+
+    private val memberName: String
+        get() = memberNameInput.value
+
+    private val memberSurname: String
+        get() = memberSurnameInput.value
+
+    private lateinit var teacherId: String
 
     override fun setupPage()
     {
+        teacherId = getLastPathSegment()
         setupButtons()
     }
 
     private fun setupButtons()
     {
         createEventButton.addEventListener("click", {
-                if (!checkInputs(eventNameInput, startDateInput, endDateInput))
+                if (
+                    !checkInputs(eventNameInput, startDateInput, endDateInput) &&
+                    addedMembers.isNotEmpty { window.alert("No members are added!") }
+                    )
                     return@addEventListener
+
+                launchInMainScope { sendEventInformation() }
             }
         )
 
         addMemberButton.addEventListener("click", {
                 if (!checkInputs(memberNameInput, memberSurnameInput))
                     return@addEventListener
+
                 addMember()
             }
         )
@@ -54,16 +86,40 @@ class CreateEventPage : Page
 
     private fun addMember()
     {
-        val memberName = memberNameInput.value
-        val memberSurname = memberSurnameInput.value
+        val memberDiv = createMemberContainerDiv()
 
-        val memberDiv = createEventCreatingMemberContainer(memberName, memberSurname)
         allMembersContainer.appendChild(memberDiv)
+
+        addedMembers.add(
+            EventMemberDTO(
+                name = memberName,
+                surname = memberSurname,
+                false,
+            )
+        )
+    }
+
+    private fun createMemberContainerDiv(): HTMLDivElement
+    {
+        val memberName = memberName
+        val memberSurname = memberSurname
+
+        return createEventCreatingMemberContainer(memberName, memberSurname)
     }
 
     private suspend fun sendEventInformation()
     {
-        // Send event information to the server
+        val eventDTO = EventDTO(
+            eventName,
+            eventNote,
+            LocalDate.parse(startDate),
+            LocalDate.parse(endDate),
+            teacherId,
+            addedMembers
+        )
+
+        val body = Json.encodeToString(eventDTO);
+        post("/api/event/create", body)
     }
 
     private fun checkInputs(vararg inputs: HTMLInputElement): Boolean
