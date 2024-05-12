@@ -1,4 +1,4 @@
-package me.trup10ka.shared.data
+package me.trup10ka.shared.data.event
 
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable

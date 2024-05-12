@@ -1,6 +1,7 @@
-package me.trup10ka.shared.data
+package me.trup10ka.shared.data.event
 
 import kotlinx.serialization.Serializable
+import me.trup10ka.shared.data.Location
 
 @Serializable
 data class EventMember(
@@ -8,6 +9,6 @@ data class EventMember(
     val name: String,
     val surname: String,
     val isTeacher: Boolean,
-    val telNumber: String?,
+    val telNumber: String? = null,
     val lastLocation: Location? = null
 )
