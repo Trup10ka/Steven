@@ -2,7 +2,6 @@ package me.trup10ka.steven.server.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.http.content.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import me.trup10ka.steven.server.event.EventManager
 import me.trup10ka.steven.server.event.TeacherVanguard
@@ -37,7 +36,7 @@ private fun Route.api(teacherVanguard: TeacherVanguard, eventManager: EventManag
 {
     route("/api") {
         getAllMembersFromEvent(eventManager)
-        createNewEvent(eventManager)
+        createNewEvent(eventManager, teacherVanguard)
     }
 }
 

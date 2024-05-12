@@ -1,6 +1,6 @@
 package me.trup10ka.steven.server.event
 
-import me.trup10ka.shared.data.EventMember
+import me.trup10ka.shared.data.event.EventMember
 
 class TeacherVanguard
 {
@@ -10,7 +10,7 @@ class TeacherVanguard
     // TODO: REMOVE THIS
     init
     {
-        teachers.add(EventMember("12345", "1", "1", true, "1"))
+        teachers.add(EventMember("12345", "Steven", "Trup", true, "1"))
     }
 
     fun addTeacher(teacher: EventMember)
