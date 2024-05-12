@@ -2,7 +2,7 @@ package me.trup10ka.steven.app.pages
 
 import kotlinx.coroutines.await
 import kotlinx.serialization.json.Json
-import me.trup10ka.shared.data.EventMember
+import me.trup10ka.shared.data.event.EventMember
 import me.trup10ka.shared.util.IdType.EVENT
 import me.trup10ka.shared.util.IdType.MEMBER
 import me.trup10ka.shared.util.idOf

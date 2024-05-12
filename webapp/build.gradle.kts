@@ -20,6 +20,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.shared)
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.datetime)
         }
 
         jsMain.dependencies {

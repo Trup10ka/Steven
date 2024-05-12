@@ -2,7 +2,8 @@ package me.trup10ka.steven.app.util
 
 import kotlinx.browser.document
 import kotlinx.browser.window
-import me.trup10ka.shared.data.EventMember
+import kotlinx.datetime.LocalDate
+import me.trup10ka.shared.data.event.EventMember
 import org.w3c.dom.*
 
 fun getLastPathSegment() = window.location.pathname.split("/").last()
