@@ -23,5 +23,5 @@ suspend fun fetch(method: String, url: String, body: dynamic = null): Response =
 suspend fun get(url: String): Response =
     fetch("GET", url)
 
-suspend fun post(url: String, body: dynamic): Response =
-    fetch("POST", url, JSON.stringify(body))
+suspend fun post(url: String, body: String): Response =
+    fetch("POST", url, body)
