@@ -8,6 +8,7 @@ import kotlinx.serialization.json.Json
 import me.trup10ka.shared.data.dto.EventDTO
 import me.trup10ka.shared.data.dto.EventMemberDTO
 import me.trup10ka.shared.util.Color
+import me.trup10ka.shared.util.withLocation
 import me.trup10ka.steven.app.util.*
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLDivElement
@@ -118,8 +119,9 @@ class CreateEventPage : Page
             addedMembers
         )
 
-        val body = Json.encodeToString(eventDTO);
-        post("/api/event/create", body)
+        val body = Json.encodeToString(eventDTO)
+        val endpoint = "/api/event/create"
+        post("http://localhost:8000" withLocation endpoint, "")
     }
 
     private fun checkInputs(vararg inputs: HTMLInputElement): Boolean

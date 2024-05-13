@@ -19,6 +19,8 @@ fun Route.createNewEvent(eventManager: EventManager, teacherVanguard: TeacherVan
 {
     post("/event/create") {
 
+        call.respondRedirect("http://localhost:8000/take-me-in")
+
         val eventDto = call.receive<EventDTO>()
 
         val teacher = teacherVanguard.getTeacherById(eventDto.teacherId)
@@ -39,17 +41,19 @@ fun Route.createNewEvent(eventManager: EventManager, teacherVanguard: TeacherVan
             eventDto.endDate
         )
 
-
-
         if (event == null)
             call.respond(HttpStatusCode.Conflict, "Event not created")
         else
         {
             val path = "/take-me-in".attachHeaderParam("eventId", event.id).attachHeaderParam("memberId", event.teacher.id)
             println(path)
-            call.respondRedirect("/take-me-in".attachHeaderParam("eventId", event.id).attachHeaderParam("memberId", event.teacher.id))
+            call.respondRedirect(
+                "http://localhost:8000/take-me-in"
+                    .attachHeaderParam("eventId", event.id)
+                    .attachHeaderParam("memberId", event.teacher.id)
+            )
         }
-
+        
     }
 }
 
