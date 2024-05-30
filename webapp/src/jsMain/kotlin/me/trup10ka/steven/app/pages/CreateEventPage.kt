@@ -1,8 +1,8 @@
 package me.trup10ka.steven.app.pages
 
 import kotlinx.browser.window
+import kotlinx.coroutines.await
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.format.DateTimeFormat
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import me.trup10ka.shared.data.dto.EventDTO
@@ -13,6 +13,7 @@ import me.trup10ka.steven.app.util.*
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLInputElement
+import org.w3c.fetch.Response
 
 class CreateEventPage : Page
 {
@@ -66,13 +67,24 @@ class CreateEventPage : Page
     private fun setupButtons()
     {
         createEventButton.addEventListener("click", {
-                if (
-                    !checkInputs(eventNameInput, startDateInput, endDateInput) &&
-                    addedMembers.isNotEmpty { window.alert("No members are added!") }
-                    )
-                    return@addEventListener
 
-                launchInMainScope { sendEventInformation() }
+                launchInMainScope {
+                    if (
+                        !checkInputs(eventNameInput, startDateInput, endDateInput) &&
+                        addedMembers.isNotEmpty { window.alert("No members are added!") }
+                    )
+                        return@launchInMainScope
+
+                    val response = sendEventInformation()
+
+                    if (response.status.toInt() == 200)
+                    {
+                        val eventId = response.text().await()
+                        window.location.href = "/take-me-in/$eventId-$teacherId"
+                    }
+                    else
+                        window.alert("Event not created!")
+                }
             }
         )
 
@@ -108,7 +120,7 @@ class CreateEventPage : Page
         return createEventCreatingMemberContainer(memberName, memberSurname)
     }
 
-    private suspend fun sendEventInformation()
+    private suspend fun sendEventInformation(): Response
     {
         val eventDTO = EventDTO(
             eventName,
@@ -121,7 +133,11 @@ class CreateEventPage : Page
 
         val body = Json.encodeToString(eventDTO)
         val endpoint = "/api/event/create"
-        post("http://localhost:8000" withLocation endpoint, "")
+
+        return post(
+            "http://localhost:8000" withLocation endpoint,
+            body
+        )
     }
 
     private fun checkInputs(vararg inputs: HTMLInputElement): Boolean
