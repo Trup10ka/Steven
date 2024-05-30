@@ -10,7 +10,7 @@ import me.trup10ka.steven.app.util.post
 
 class JSPureGeoProvider : GeoProvider
 {
-    override fun sendLocation(senderId: String)
+    override fun sendLocation(senderId: String, eventId: String)
     {
         callJsGetLocation { latitude, longitude ->
 
@@ -20,7 +20,7 @@ class JSPureGeoProvider : GeoProvider
                 console.log(
                     Json.encodeToString(location)
                 )
-                post("/api/location/" withLocation senderId,
+                post("/api/event/$eventId/location/" withLocation senderId,
                     JSON.stringify(location))
             }
         }
