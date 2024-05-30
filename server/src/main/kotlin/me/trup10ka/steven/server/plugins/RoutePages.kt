@@ -33,11 +33,15 @@ fun Route.areYouATeacher(teacherVanguard: TeacherVanguard)
     }
 }
 
-fun Route.lookForEvent(eventManager: EventManager)
+fun Route.lookForEvent(eventManager: EventManager, teacherVanguard: TeacherVanguard)
 {
     throwIfFileDoesNotExist(mapPage, "HTML", "map.html")
 
     get("/take-me-in") {
+        call.respondFile(mapPage)
+    }
+
+    get("take-me-in/{eventId}-{memberId}") {
         call.respondFile(mapPage)
     }
 }

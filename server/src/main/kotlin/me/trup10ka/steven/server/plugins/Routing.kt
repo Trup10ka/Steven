@@ -28,7 +28,7 @@ private fun Route.pages(teacherVanguard: TeacherVanguard, eventManager: EventMan
     route("/") {
         index()
         areYouATeacher(teacherVanguard)
-        lookForEvent(eventManager)
+        lookForEvent(eventManager, teacherVanguard)
     }
 }
 
