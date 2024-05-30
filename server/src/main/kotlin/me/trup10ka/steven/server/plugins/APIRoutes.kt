@@ -48,9 +48,10 @@ fun Route.createNewEvent(eventManager: EventManager, teacherVanguard: TeacherVan
 
 fun Route.getAllMembersFromEvent(eventManager: EventManager)
 {
-    get("/event/{id}/members") {
+    get("/event/{whole-id}/members") {
 
-        val idParam = call.parameters["id"]!!
+        val idParam = call.parameters["whole-id"]!!
+        println(idParam)
         val event = eventManager.getEventById(idParam idOf EVENT)
 
         if (event == null)
@@ -61,7 +62,8 @@ fun Route.getAllMembersFromEvent(eventManager: EventManager)
 
         if (event.students.any { it.id == idParam idOf MEMBER } || event.teacher.id == idParam idOf MEMBER)
         {
-            call.respond(listOf(event.teacher, event.students))
+            val allMembers = listOf(event.teacher) + event.students
+            call.respond(allMembers)
             return@get
         }
         call.respond(HttpStatusCode.Unauthorized, "You are not a member of this event")

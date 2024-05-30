@@ -23,16 +23,17 @@ class MapPage : Page
 
     private val allMembers = mutableListOf<EventMember>()
 
-    private val memberId: String
-        get() = getLastPathSegment() idOf MEMBER
-
     private val eventId: String
         get() = getLastPathSegment() idOf EVENT
 
+    private val memberId: String
+        get() = getLastPathSegment() idOf MEMBER
+
+
     override fun setupPage()
     {
-        geoProvider.sendLocation(memberId)
         setupMap()
+        geoProvider.sendLocation(memberId)
 
         launchInMainScope {
             gatherAllLocations()
@@ -55,7 +56,7 @@ class MapPage : Page
 
     private suspend fun gatherAllLocations()
     {
-        val location = "/api/events/$eventId/members"
+        val location = "/api/event/$eventId-$memberId/members"
 
         val response = get("http://localhost:8000" withLocation location)
 
