@@ -44,7 +44,7 @@ fun Route.lookForEvent(eventManager: EventManager, teacherVanguard: TeacherVangu
     get("take-me-in/{id}") {
 
         val id = call.parameters["id"]!!
-        val event = eventManager.getEventById(id)
+        val event = eventManager.getEventById(id idOf EVENT)
 
         if (event == null)
         {
