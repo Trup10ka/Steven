@@ -5,14 +5,17 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import me.trup10ka.shared.data.Location
 import me.trup10ka.shared.data.dto.EventDTO
 import me.trup10ka.shared.data.event.EventMember
 import me.trup10ka.shared.data.dto.EventMemberDTO
+import me.trup10ka.shared.data.event.Event
 import me.trup10ka.shared.util.IdType.*
 import me.trup10ka.shared.util.attachHeaderParam
 import me.trup10ka.shared.util.idOf
 import me.trup10ka.steven.server.event.EventManager
 import me.trup10ka.steven.server.event.TeacherVanguard
+import me.trup10ka.steven.server.util.checkIfMemberIsPartOfEvent
 import me.trup10ka.steven.server.util.humanUID
 
 fun Route.createNewEvent(eventManager: EventManager, teacherVanguard: TeacherVanguard)
@@ -46,12 +49,36 @@ fun Route.createNewEvent(eventManager: EventManager, teacherVanguard: TeacherVan
     }
 }
 
+fun Route.receiveClientLocation(eventManager: EventManager)
+{
+    post("/event/{eventId}/location/{memberId}") {
+
+        val eventId = call.parameters["eventId"]!!
+        val memberId = call.parameters["memberId"]!!
+
+        val location = call.receive<Location>()
+
+        val event = eventManager.getEventById(eventId)
+
+        if (event == null)
+        {
+            call.respond(HttpStatusCode.NotFound, "Event not found")
+            return@post
+        }
+
+        if (checkIfMemberIsPartOfEvent(event, memberId))
+        {
+            event.updateMemberLocation(memberId, location)
+            call.respond(HttpStatusCode.OK)
+        }
+    }
+}
+
 fun Route.getAllMembersFromEvent(eventManager: EventManager)
 {
     get("/event/{whole-id}/members") {
 
         val idParam = call.parameters["whole-id"]!!
-        println(idParam)
         val event = eventManager.getEventById(idParam idOf EVENT)
 
         if (event == null)
@@ -60,7 +87,7 @@ fun Route.getAllMembersFromEvent(eventManager: EventManager)
             return@get
         }
 
-        if (event.students.any { it.id == idParam idOf MEMBER } || event.teacher.id == idParam idOf MEMBER)
+        if (checkIfMemberIsPartOfEvent(event, idParam idOf MEMBER))
         {
             val allMembers = listOf(event.teacher) + event.students
             call.respond(allMembers)

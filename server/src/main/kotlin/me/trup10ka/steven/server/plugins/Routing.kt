@@ -37,6 +37,7 @@ private fun Route.api(teacherVanguard: TeacherVanguard, eventManager: EventManag
     route("/api") {
         getAllMembersFromEvent(eventManager)
         createNewEvent(eventManager, teacherVanguard)
+        receiveClientLocation(eventManager)
     }
 }
 
