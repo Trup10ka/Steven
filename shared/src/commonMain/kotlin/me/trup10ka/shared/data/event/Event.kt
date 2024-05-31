@@ -2,6 +2,7 @@ package me.trup10ka.shared.data.event
 
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
+import me.trup10ka.shared.data.Location
 
 @Serializable
 data class Event(
@@ -13,3 +14,9 @@ data class Event(
     val teacher: EventMember,
     val students: List<EventMember>
 )
+{
+    fun updateMemberLocation(memberId: String, location: Location)
+    {
+        students.find { it.id == memberId }?.updateLocation(location)
+    }
+}

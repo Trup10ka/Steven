@@ -10,5 +10,11 @@ data class EventMember(
     val surname: String,
     val isTeacher: Boolean,
     val telNumber: String? = null,
-    val lastLocation: Location? = null
+    var lastLocation: Location? = null
 )
+{
+    fun updateLocation(location: Location)
+    {
+        lastLocation = location
+    }
+}
