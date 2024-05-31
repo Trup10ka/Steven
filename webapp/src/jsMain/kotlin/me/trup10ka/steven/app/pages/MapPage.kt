@@ -32,8 +32,8 @@ class MapPage : Page
 
     override fun setupPage()
     {
+        geoProvider.sendLocation(memberId, eventId)
         setupMap()
-        geoProvider.sendLocation(memberId)
 
         launchInMainScope {
             gatherAllLocations()
@@ -66,15 +66,17 @@ class MapPage : Page
             return
         }
 
-        val members = Json.decodeFromString<Array<EventMember>>(
-            response.json().await().toString()
-        )
+        val jsonObject = response.json().await()
+
+        val members = Json.decodeFromString<Array<EventMember>>(JSON.stringify(jsonObject))
 
         allMembers.addAll(members)
     }
 
     private fun displayEveryoneInMemberBox()
     {
+        membersContainer.innerHTML = ""
+
         allMembers.forEach { member ->
 
             val memberContainer = createMemberOnMapPageContainer(member)
