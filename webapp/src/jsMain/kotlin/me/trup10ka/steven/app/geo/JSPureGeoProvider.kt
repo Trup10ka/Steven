@@ -17,11 +17,8 @@ class JSPureGeoProvider : GeoProvider
             val location = Location(latitude.toDouble(), longitude.toDouble())
 
             launchInMainScope {
-                console.log(
-                    Json.encodeToString(location)
-                )
                 post("/api/event/$eventId/location/" withLocation senderId,
-                    JSON.stringify(location))
+                    Json.encodeToString(location))
             }
         }
     }
