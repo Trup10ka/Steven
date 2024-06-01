@@ -56,9 +56,7 @@ class MapPage : Page
 
     private suspend fun gatherAllLocations()
     {
-        val location = "/api/event/$eventId-$memberId/members"
-
-        val response = get("http://localhost:8000" withLocation location)
+        val response = get("/api/event/$eventId-$memberId/members")
 
         if (!response.ok)
         {

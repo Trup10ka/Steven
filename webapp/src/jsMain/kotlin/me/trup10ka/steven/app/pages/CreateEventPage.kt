@@ -132,10 +132,9 @@ class CreateEventPage : Page
         )
 
         val body = Json.encodeToString(eventDTO)
-        val endpoint = "/api/event/create"
 
         return post(
-            "http://localhost:8000" withLocation endpoint,
+            "/api/event/create",
             body
         )
     }
