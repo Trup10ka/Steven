@@ -6,6 +6,7 @@ function callJsGetLocation(processLocation)
         },
         (error) => {
             console.error(error)
-        }
+        },
+        { enableHighAccuracy: true }
     )
 }
