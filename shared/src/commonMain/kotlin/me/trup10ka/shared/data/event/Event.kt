@@ -17,6 +17,8 @@ data class Event(
 {
     fun updateMemberLocation(memberId: String, location: Location)
     {
-        students.find { it.id == memberId }?.updateLocation(location)
+        val allMembers = listOf(teacher) + students
+
+        allMembers.find { it.id == memberId }?.updateLocation(location)
     }
 }
