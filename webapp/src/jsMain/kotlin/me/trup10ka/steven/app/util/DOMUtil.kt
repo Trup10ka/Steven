@@ -47,7 +47,7 @@ fun createMemberOnMapPageContainer(member: EventMember): Element
     }
 
     lastSeen.apply {
-        appendChild(createLabel("Last seen:"))
+        appendChild(createLabel("Last seen: "))
         appendChild(createLastSeen(member))
     }
 

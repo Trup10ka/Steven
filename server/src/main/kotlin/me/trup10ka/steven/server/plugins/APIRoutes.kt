@@ -131,6 +131,7 @@ fun EventMember.hashIdOfThisMember(): EventMember
         name,
         surname,
         isTeacher,
-        telNumber
+        telNumber,
+        lastLocation
     )
 }
