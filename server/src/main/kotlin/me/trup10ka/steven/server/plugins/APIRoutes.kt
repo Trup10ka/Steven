@@ -66,11 +66,14 @@ fun Route.receiveClientLocation(eventManager: EventManager)
             return@post
         }
 
-        if (checkIfMemberIsPartOfEvent(event, memberId))
+        if (!checkIfMemberIsPartOfEvent(event, memberId))
         {
-            event.updateMemberLocation(memberId, location)
-            call.respond(HttpStatusCode.OK)
+            call.respond(HttpStatusCode.Unauthorized, "You are not a member of this event")
+            return@post
         }
+
+        event.updateMemberLocation(memberId, location)
+        call.respond(HttpStatusCode.OK)
     }
 }
 
