@@ -21,7 +21,7 @@ When client opens the event, a page with a map and list of all members connected
 Client then can send his current location via "I'm alive!" button, which will update his location on the map.
 Client can request location of other members via "Are they alive?" button, to refresh the event page
 
-### Learn more about [Steven here]()
+### Learn more about [Steven here](https://github.com/Trup10ka/Steven/wiki)
 
 ---
 
