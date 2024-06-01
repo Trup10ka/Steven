@@ -9,9 +9,7 @@ import me.trup10ka.shared.data.Location
 import me.trup10ka.shared.data.dto.EventDTO
 import me.trup10ka.shared.data.event.EventMember
 import me.trup10ka.shared.data.dto.EventMemberDTO
-import me.trup10ka.shared.data.event.Event
 import me.trup10ka.shared.util.IdType.*
-import me.trup10ka.shared.util.attachHeaderParam
 import me.trup10ka.shared.util.idOf
 import me.trup10ka.steven.server.event.EventManager
 import me.trup10ka.steven.server.event.TeacherVanguard
@@ -92,7 +90,9 @@ fun Route.getAllMembersFromEvent(eventManager: EventManager)
 
         if (checkIfMemberIsPartOfEvent(event, idParam idOf MEMBER))
         {
-            val allMembers = listOf(event.teacher) + event.students
+            val allMembers = (listOf(event.teacher) + event.students)
+                .map { it.hashIdOfThisMember() }
+
             call.respond(allMembers)
             return@get
         }
@@ -122,4 +122,15 @@ private fun generateMembersFromData(members: List<EventMemberDTO>): List<EventMe
         )
     }
     return listOfMembers
+}
+
+fun EventMember.hashIdOfThisMember(): EventMember
+{
+    return EventMember(
+        id.hashCode().toString(),
+        name,
+        surname,
+        isTeacher,
+        telNumber
+    )
 }
