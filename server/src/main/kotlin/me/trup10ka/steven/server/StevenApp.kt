@@ -6,6 +6,17 @@ import io.ktor.server.netty.*
 import me.trup10ka.steven.server.config.Config
 import me.trup10ka.steven.server.config.FileConfigProvider
 
+/**
+ * Main class for the Steven server app.
+ *
+ * Server configuration is loaded from a YAML file.
+ *
+ * The server is started using Ktor's Netty engine.
+ *
+ * The current server module is defined in [StevenAppModules][me.trup10ka.steven.server.stevenModule]
+ *
+ * @since 1.0.0
+ */
 class StevenApp
 {
     private lateinit var config: Config
