@@ -79,3 +79,7 @@ body {
 .steven-red {
     background-color: rgba(190, 10, 20, 0.50);
 }
+
+.steven-red:hover {
+    background-color: rgba(190, 10, 20, 0.80);
+}
