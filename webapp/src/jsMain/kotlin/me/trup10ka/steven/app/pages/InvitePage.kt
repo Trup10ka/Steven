@@ -1,5 +1,6 @@
 package me.trup10ka.steven.app.pages
 
+import kotlinx.browser.window
 import me.trup10ka.shared.util.Color
 import me.trup10ka.shared.util.attachHeaderParam
 import org.w3c.dom.HTMLButtonElement
@@ -8,6 +9,7 @@ import org.w3c.dom.HTMLInputElement
 import me.trup10ka.steven.app.util.get
 import me.trup10ka.steven.app.util.launchInMainScope
 import me.trup10ka.shared.util.ParamNames.*
+import me.trup10ka.shared.util.withLocation
 import me.trup10ka.steven.app.util.getElementById
 
 
@@ -56,7 +58,11 @@ class InvitePage : Page
             return
         }
 
-        get("/take-me-in".attachHeaderParam(LOCATION.paramName, invitationLink))
+        val response = get("/take-me-in" withLocation invitationLink)
+        if (response.ok)
+            window.location.href = "/take-me-in" withLocation invitationLink
+        else
+            window.alert("Event not found")
     }
 
     private suspend fun redirectToTeacherPage()
@@ -68,6 +74,11 @@ class InvitePage : Page
             return
         }
 
-        get("/teacher".attachHeaderParam(TEACHER_ID.paramName, teacherId))
+        val response = get("/are-you-a-teacher" withLocation teacherId)
+
+        if (response.ok)
+            window.location.href = "/are-you-a-teacher" withLocation teacherId
+        else
+            window.alert("You are not a teacher")
     }
 }
