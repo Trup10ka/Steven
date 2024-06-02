@@ -11,6 +11,11 @@ import me.trup10ka.steven.app.geo.GeoProvider
 import me.trup10ka.steven.app.geo.JSPureGeoProvider
 import me.trup10ka.steven.app.util.*
 
+/**
+ * Page for displaying a map with all members of an event.
+ *
+ * This page is used to display a map with all members of an event.
+ */
 class MapPage : Page
 {
     private val membersContainer = getElementById("members-container")
@@ -30,6 +35,13 @@ class MapPage : Page
         get() = getLastPathSegment() idOf MEMBER
 
 
+    /**
+     * During the setup phase of this page, firstly, the location of the current user is sent to the server.
+     *
+     * Then, the map is set up with the default view and the OpenStreetMap tile layer.
+     *
+     * After that, all locations of the members of the event are fetched from the server.
+     */
     override fun setupPage()
     {
         geoProvider.sendLocation(memberId, eventId)

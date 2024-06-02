@@ -2,17 +2,19 @@ package me.trup10ka.steven.app.pages
 
 import kotlinx.browser.window
 import me.trup10ka.shared.util.Color
-import me.trup10ka.shared.util.attachHeaderParam
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLInputElement
 import me.trup10ka.steven.app.util.get
 import me.trup10ka.steven.app.util.launchInMainScope
-import me.trup10ka.shared.util.ParamNames.*
 import me.trup10ka.shared.util.withLocation
 import me.trup10ka.steven.app.util.getElementById
 
-
+/**
+ * This page is responsible for handling the invitation link and teacher ID input fields.
+ *
+ * @see Page
+ */
 class InvitePage : Page
 {
     private val invitationLinkField = getElementById("invitation-link-input") as HTMLInputElement
@@ -49,6 +51,11 @@ class InvitePage : Page
         )
     }
 
+    /**
+     * Sends id of desired event to the server and redirects to the event page if the event exists.
+     *
+     * If the event does not exist, an alert is shown and text field is highlighted with red color
+     */
     private suspend fun sendProvidedLink()
     {
         if (invitationLink.isEmpty())
@@ -65,6 +72,11 @@ class InvitePage : Page
             window.alert("Event not found")
     }
 
+    /**
+     * Sends teacher ID to the server and redirects to the teacher page if the teacher exists.
+     *
+     * If the teacher does not exist, an alert is shown and text field is highlighted with red color
+     */
     private suspend fun redirectToTeacherPage()
     {
         if (teacherId.isEmpty())
