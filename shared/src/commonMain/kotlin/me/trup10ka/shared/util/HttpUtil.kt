@@ -9,5 +9,5 @@ fun String.attachHeaderParam(paramName: String, param: String, attachAmpersand: 
 
 infix fun String.withLocation(location: String): String
 {
-    return "$this${if (this.contains("/") || location[0] == '/') "" else "/"}$location"
+    return "$this${if (this[this.length] == '/' || location[0] == '/') "" else "/"}$location"
 }
