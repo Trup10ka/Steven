@@ -119,11 +119,16 @@ class MapPage : Page
         marker.addTo(map)
 
         marker.on("click") {
-            marker.unbindPopup()
-            marker.bindPopup("${member.name} ${member.surname}")
-            marker.openPopup()
+            createPopup(marker, member)
         }
 
         return marker
+    }
+
+    private fun createPopup(marker: Marker, member: EventMember)
+    {
+        marker.unbindPopup()
+        marker.bindPopup("${member.name} ${member.surname}")
+        marker.openPopup()
     }
 }
