@@ -114,12 +114,15 @@ class MapPage : Page
 
     private fun createNewMarker(locationArray: Array<Double>, member: EventMember): Marker
     {
-        val marker = L.marker(
-            locationArray,
-            createMarkerTitleOption("${member.name} ${member.surname}")
-        )
+        val marker = L.marker(locationArray)
 
         marker.addTo(map)
+
+        marker.on("click") {
+            marker.unbindPopup()
+            marker.bindPopup("${member.name} ${member.surname}")
+            marker.openPopup()
+        }
 
         return marker
     }

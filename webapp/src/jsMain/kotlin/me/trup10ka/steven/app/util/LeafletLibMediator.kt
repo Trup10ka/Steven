@@ -15,8 +15,14 @@ external class Map
 
 external interface Marker : Layer
 {
+    var options: MarkerOptions
+
     fun addTo(map: Map)
     fun setLatLng(latlng: Array<Double>)
+    fun on(event: String, callback: () -> Unit)
+    fun bindPopup(content: String): Marker
+    fun openPopup()
+    fun unbindPopup()
 }
 
 external interface Icon
