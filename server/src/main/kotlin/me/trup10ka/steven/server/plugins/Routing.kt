@@ -45,10 +45,13 @@ private fun Route.resourceFiles()
 {
     val staticStyles = fromResources("styles")
     val staticScripts = fromResources("scripts")
+    val staticImages = fromResources("img")
 
     throwIfFileDoesNotExist(staticStyles, "Directory", "styles")
     throwIfFileDoesNotExist(staticScripts, "Directory", "scripts")
+    throwIfFileDoesNotExist(staticImages, "Directory", "img")
 
     staticFiles("/styles/", staticStyles)
     staticFiles("/scripts/", staticScripts)
+    staticFiles("/img/", staticImages)
 }
